@@ -1,65 +1,159 @@
-import Image from "next/image";
+import Link from "next/link";
 
-export default function Home() {
+export default function LandingPage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="min-h-screen bg-[#ECECF8] overflow-y-auto">
+      {/* Navbar */}
+      <nav className="max-w-7xl mx-auto px-4 md:px-8 py-4 md:py-5 flex items-center justify-between">
+        <div className="flex items-center gap-2.5">
+          <div className="w-9 h-9 bg-[#6C6FDF] rounded-xl flex items-center justify-center shadow-md shadow-[#6C6FDF]/40">
+            <i className="fa-solid fa-calendar-check text-white text-sm"></i>
+          </div>
+          <span className="text-xl font-extrabold text-[#1A1A2E]">DayLog</span>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+        <div className="flex items-center gap-3">
+          <Link href="/sign-in" className="btn btn-ghost px-5">
+            Sign In
+          </Link>
+          <Link
+            href="/sign-up"
+            className="btn btn-primary shadow-md shadow-[#6C6FDF]/30"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            Get Started Free
+          </Link>
         </div>
-      </main>
+      </nav>
+
+      {/* Hero */}
+      <div className="max-w-4xl mx-auto px-4 md:px-8 pt-10 md:pt-16 pb-12 md:pb-20 text-center">
+        <div className="inline-flex items-center gap-2 bg-white border border-[#EEEEFF] px-4 py-2 rounded-full text-sm font-semibold text-[#6C6FDF] shadow-sm mb-8">
+          <i className="fa-solid fa-fire text-xs"></i>
+          Plan. Track. Improve. Every Single Day.
+        </div>
+        <h1 className="hero-title text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.12] text-[#1A1A2E] mb-6">
+          Plan Your Day.
+          <br />
+          <span className="grad-text">Own Your Reality.</span>
+        </h1>
+        <p className="text-base lg:text-lg text-[#6B7280] max-w-xl mx-auto mb-10 leading-relaxed">
+          The only daily tracker that&apos;s honest about the gap between what
+          you planned and what actually happened — and helps you close it.
+        </p>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+          <Link
+            href="/sign-up"
+            className="btn btn-primary rounded-2xl shadow-lg shadow-[#6C6FDF]/30"
+            style={{ fontSize: "15px", padding: "14px 32px" }}
+          >
+            Get Started Free <i className="fa-solid fa-arrow-right"></i>
+          </Link>
+          <Link
+            href="/sign-in"
+            className="btn btn-outline rounded-2xl"
+            style={{ fontSize: "15px", padding: "14px 32px" }}
+          >
+            Sign In
+          </Link>
+        </div>
+
+        {/* Stats */}
+        <div className="landing-stats flex items-center justify-center gap-8 lg:gap-12 mt-12 lg:mt-16 flex-wrap">
+          <div className="text-center">
+            <div className="text-3xl font-extrabold text-[#1A1A2E]">🔥 26</div>
+            <div className="text-sm text-[#6B7280] mt-1 font-medium">
+              Day Streak Record
+            </div>
+          </div>
+          <div className="stat-divider w-px h-10 bg-[#E5E7EB]"></div>
+          <div className="text-center">
+            <div className="text-3xl font-extrabold text-[#6C6FDF]">74%</div>
+            <div className="text-sm text-[#6B7280] mt-1 font-medium">
+              Avg Productivity Score
+            </div>
+          </div>
+          <div className="stat-divider w-px h-10 bg-[#E5E7EB]"></div>
+          <div className="text-center">
+            <div className="text-3xl font-extrabold text-[#1A1A2E]">12+</div>
+            <div className="text-sm text-[#6B7280] mt-1 font-medium">
+              Built-in Activity Tags
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Features */}
+      <div className="max-w-7xl mx-auto px-4 md:px-8 pb-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
+          <FeatureCard
+            icon="fa-clock"
+            iconBg="bg-[#EEEEFF]"
+            iconColor="text-[#6C6FDF]"
+            title="Hourly Time Blocks"
+            description="Plan your day in blocks with nested tasks. See exactly where every hour goes."
+          />
+          <FeatureCard
+            icon="fa-bolt"
+            iconBg="bg-[#DCFCE7]"
+            iconColor="text-[#15803D]"
+            title="Honest Productivity Score"
+            description="Score weighted by duration. A 2hr block matters more than a 15-min one."
+          />
+          <FeatureCard
+            icon="fa-layer-group"
+            iconBg="bg-[#F3E8FF]"
+            iconColor="text-[#7E22CE]"
+            title="Day Templates"
+            description='Save your routine as a template. Apply "My Typical Monday" to any future date.'
+          />
+          <FeatureCard
+            icon="fa-fire"
+            iconBg="bg-[#FEF3C7]"
+            iconColor="text-[#F59E0B]"
+            title="Streak Tracking"
+            description="Track how many days you've logged consecutively. Missing a day breaks the chain."
+          />
+          <FeatureCard
+            icon="fa-arrow-right"
+            iconBg="bg-[#DBEAFE]"
+            iconColor="text-[#1D4ED8]"
+            title="Carry Forward"
+            description="Didn't finish a task? Push it to tomorrow's schedule with one tap. Nothing falls through."
+          />
+          <FeatureCard
+            icon="fa-rotate"
+            iconBg="bg-[#DCFCE7]"
+            iconColor="text-[#15803D]"
+            title="Recurring Blocks"
+            description="Set a block to repeat daily or weekly. It auto-fills your schedule every time."
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function FeatureCard({
+  icon,
+  iconBg,
+  iconColor,
+  title,
+  description,
+}: {
+  icon: string;
+  iconBg: string;
+  iconColor: string;
+  title: string;
+  description: string;
+}) {
+  return (
+    <div className="feature-card">
+      <div
+        className={`w-12 h-12 ${iconBg} rounded-2xl flex items-center justify-center mb-4`}
+      >
+        <i className={`fa-solid ${icon} ${iconColor} text-lg`}></i>
+      </div>
+      <h3 className="font-bold text-[#1A1A2E] mb-2 text-sm">{title}</h3>
+      <p className="text-sm text-[#6B7280] leading-relaxed">{description}</p>
     </div>
   );
 }
