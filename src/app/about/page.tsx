@@ -1,17 +1,12 @@
 // Rendering: ISR (Incremental Static Regeneration).
-// This is a PUBLIC page (no auth) showing aggregate platform stats.
-// The numbers are identical for every visitor, so caching the rendered HTML
-// is safe. We revalidate every hour to keep the numbers reasonably fresh
-// without hitting the DB on every page view.
+// Public page showing aggregate platform stats. Revalidates every hour.
 
 import Link from "next/link";
 import { prisma } from "@/lib/db";
 
-// ── ISR config — Next.js revalidates this page at most once every 3600s (1h) ──
 export const revalidate = 3600;
 
 export default async function AboutPage() {
-  // These three queries run at most once per hour because of `revalidate`.
   const [userCount, blockCount, doneTodoCount] = await Promise.all([
     prisma.user.count(),
     prisma.block.count(),
@@ -19,71 +14,93 @@ export default async function AboutPage() {
   ]);
 
   return (
-    <div className="min-h-screen bg-[#ECECF8]">
+    <div className="min-h-screen" style={{ background: "var(--bg)" }}>
       {/* Navbar */}
-      <nav className="max-w-7xl mx-auto px-4 md:px-8 py-4 md:py-5 flex items-center justify-between">
+      <nav
+        className="max-w-7xl mx-auto px-4 md:px-8 py-4 flex items-center justify-between"
+        style={{ borderBottom: "1px solid var(--border)" }}
+      >
         <Link href="/" className="flex items-center gap-2.5">
-          <div className="w-9 h-9 bg-[#6C6FDF] rounded-xl flex items-center justify-center shadow-md shadow-[#6C6FDF]/40">
+          <div
+            className="w-8 h-8 flex items-center justify-center"
+            style={{ background: "var(--accent)", borderRadius: "7px" }}
+          >
             <i className="fa-solid fa-calendar-check text-white text-sm"></i>
           </div>
-          <span className="text-xl font-extrabold text-[#1A1A2E]">Klok</span>
+          <span
+            className="text-lg font-bold"
+            style={{ color: "var(--text)", letterSpacing: "-0.02em" }}
+          >
+            Klok
+          </span>
         </Link>
-        <div className="flex items-center gap-3">
-          <Link href="/sign-in" className="btn btn-ghost px-5">
+        <div className="flex items-center gap-2">
+          <Link href="/sign-in" className="btn btn-ghost">
             Sign In
           </Link>
-          <Link
-            href="/sign-up"
-            className="btn btn-primary shadow-md shadow-[#6C6FDF]/30"
-          >
+          <Link href="/sign-up" className="btn btn-primary">
             Get Started
           </Link>
         </div>
       </nav>
 
       {/* Hero */}
-      <div className="max-w-4xl mx-auto px-4 md:px-8 pt-12 md:pt-20 pb-12 text-center">
-        <div className="inline-flex items-center gap-2 bg-white border border-[#EEEEFF] px-4 py-2 rounded-full text-sm font-semibold text-[#6C6FDF] shadow-sm mb-6">
+      <div className="max-w-4xl mx-auto px-4 md:px-8 pt-16 pb-12 text-center">
+        <div
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-6"
+          style={{
+            background: "var(--accent-bg)",
+            color: "var(--accent)",
+            border: "1px solid rgba(94,106,210,.2)",
+          }}
+        >
           About Klok
         </div>
-        <h1 className="text-3xl md:text-5xl font-extrabold leading-tight text-[#1A1A2E] mb-6">
+        <h1
+          className="text-3xl md:text-5xl font-bold leading-tight mb-6"
+          style={{ color: "var(--text)", letterSpacing: "-0.03em" }}
+        >
           A daily tracker built for{" "}
-          <span className="grad-text">honest reflection.</span>
+          <span style={{ color: "var(--accent)" }}>honest reflection.</span>
         </h1>
-        <p className="text-base lg:text-lg text-[#6B7280] max-w-2xl mx-auto leading-relaxed">
-          Klok isn&apos;t a fancy planner that pretends every day goes
-          smoothly. It&apos;s a tracker designed around the truth: you plan,
-          you execute, you miss things, you adjust. It helps you build a real
-          rhythm without judgement.
+        <p
+          className="text-base lg:text-lg max-w-2xl mx-auto leading-relaxed"
+          style={{ color: "var(--text-2)" }}
+        >
+          Klok isn&apos;t a fancy planner that pretends every day goes smoothly.
+          It&apos;s a tracker designed around the truth: you plan, you execute,
+          you miss things, you adjust.
         </p>
       </div>
 
-      {/* Live (ISR) stats */}
+      {/* Stats */}
       <div className="max-w-4xl mx-auto px-4 md:px-8 pb-12">
         <div className="card p-8">
-          <h2 className="font-bold text-[#1A1A2E] mb-1">Klok by the numbers</h2>
-          <p className="text-xs text-[#9CA3AF] mb-6">
+          <h2 className="font-semibold mb-1" style={{ color: "var(--text)" }}>
+            Klok by the numbers
+          </h2>
+          <p className="text-xs mb-6" style={{ color: "var(--text-3)" }}>
             Updated hourly.
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <StatBlock
               icon="fa-users"
-              iconBg="bg-[#EEEEFF]"
-              iconColor="text-[#6C6FDF]"
+              iconBg="var(--accent-bg)"
+              iconColor="var(--accent)"
               value={userCount.toLocaleString()}
               label="People tracking"
             />
             <StatBlock
               icon="fa-clock"
-              iconBg="bg-[#FEF3C7]"
-              iconColor="text-[#A16207]"
+              iconBg="var(--warning-bg)"
+              iconColor="var(--warning)"
               value={blockCount.toLocaleString()}
               label="Time blocks scheduled"
             />
             <StatBlock
               icon="fa-check"
-              iconBg="bg-[#DCFCE7]"
-              iconColor="text-[#15803D]"
+              iconBg="var(--success-bg)"
+              iconColor="var(--success)"
               value={doneTodoCount.toLocaleString()}
               label="Todos completed"
             />
@@ -91,12 +108,12 @@ export default async function AboutPage() {
         </div>
       </div>
 
-      {/* Closing */}
+      {/* CTA */}
       <div className="max-w-4xl mx-auto px-4 md:px-8 pb-20 text-center">
         <Link
           href="/sign-up"
-          className="btn btn-primary shadow-lg shadow-[#6C6FDF]/30"
-          style={{ fontSize: "15px", padding: "14px 32px" }}
+          className="btn btn-primary"
+          style={{ fontSize: "14px", padding: "12px 28px" }}
         >
           Start Tracking Free <i className="fa-solid fa-arrow-right"></i>
         </Link>
@@ -121,12 +138,26 @@ function StatBlock({
   return (
     <div className="text-center">
       <div
-        className={`w-12 h-12 ${iconBg} rounded-2xl flex items-center justify-center mx-auto mb-3`}
+        className="w-11 h-11 rounded-lg flex items-center justify-center mx-auto mb-3"
+        style={{ background: iconBg }}
       >
-        <i className={`fa-solid ${icon} ${iconColor} text-lg`}></i>
+        <i
+          className={`fa-solid ${icon} text-lg`}
+          style={{ color: iconColor }}
+        ></i>
       </div>
-      <div className="text-3xl font-extrabold text-[#1A1A2E]">{value}</div>
-      <div className="text-sm text-[#6B7280] mt-1 font-medium">{label}</div>
+      <div
+        className="text-3xl font-bold"
+        style={{ color: "var(--text)", letterSpacing: "-0.03em" }}
+      >
+        {value}
+      </div>
+      <div
+        className="text-sm mt-1 font-medium"
+        style={{ color: "var(--text-2)" }}
+      >
+        {label}
+      </div>
     </div>
   );
 }
